@@ -1,5 +1,6 @@
 import { Component, computed, effect, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CounterService } from '../counter.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+// export class AppComponent {
 
 
   // this is a mutable js variable
@@ -17,19 +18,19 @@ export class AppComponent {
 
   // a signal is a wrapper for a value
   // counter is a writable signal of type number
-  counter = signal(0);
+  // counter = signal(0);
 
   // this is an object signal
-  course = signal({
-    id: 1,
-    title: "Angular for Beginners"
-  });
+  // course = signal({
+  //   id: 1,
+  //   title: "Angular for Beginners"
+  // });
 
   // this is an array signal
-  courses = signal([
-    "Angular for Beginners",
-    "Reactive Angular Course"
-  ]);
+  // courses = signal([
+  //   "Angular for Beginners",
+  //   "Reactive Angular Course"
+  // ]);
 
   // this is a derived signal with the computer method of the signal API
   // derived signals are read only, there is no set or update methods
@@ -40,46 +41,46 @@ export class AppComponent {
 
   // we should never initialize a source signal inside a
   // derived signal inside an if block, always outside
-  multiplier: number = 0;
+  // multiplier: number = 0;
   
-  derivedCounter = computed(() => {
+  // derivedCounter = computed(() => {
      
-    const counter = this.counter();
+  //   const counter = this.counter();
     
-    if (this.multiplier >= 10) {
-    // do not do this here -> const counter = this.counter();
-      return counter * 10;
-    } else {
-      return 0;
-    }
-   });
+  //   if (this.multiplier >= 10) {
+  //   // do not do this here -> const counter = this.counter();
+  //     return counter * 10;
+  //   } else {
+  //     return 0;
+  //   }
+  //  });
 
 
 
 
-  constructor() {
+  // constructor() {
 
     // readOnlySignal is a read only signal,
     // so we cannot use update and set
-    const readOnlySignal = this.counter.asReadonly();
+    // const readOnlySignal = this.counter.asReadonly();
 
     // the effect method the first time its called (in this constructor)
     // will allow Angular to make note of the signals its using
     // and it will be called subsequently reactively (that is without needing
     // invokation) every time all the signals referenced within change.
     // And thus log to the console (which would be the side effect proper)
-    effect(() => {
+  //   effect(() => {
       
-      const counterValue = this.counter();
-      const derivedCounterValue = this.derivedCounter();
+  //     const counterValue = this.counter();
+  //     const derivedCounterValue = this.derivedCounter();
 
-      console.log(`counter: ${counterValue} derived counter: ${derivedCounterValue}`);
+  //     console.log(`counter: ${counterValue} derived counter: ${derivedCounterValue}`);
 
-    });
+  //   });
 
-  }
+  // }
 
-  increment() {
+  // increment() {
     // this is how you mutate the js variable
     // this.counter++;
 
@@ -88,7 +89,7 @@ export class AppComponent {
     // this.counter.set(this.counter() + 1);
 
     // the update method of the signal API is an alternative to set
-    this.counter.update(currVal => currVal + 1);
+    // this.counter.update(currVal => currVal + 1);
 
     // never do this to mutate an object signal property:
     // this.course().title = "Hello World";
@@ -98,20 +99,20 @@ export class AppComponent {
     // mechanism
 
     // instead do this:
-    this.course.set({
-      id: 1,
-      title: "Hello World"
-    });    
+//     this.course.set({
+//       id: 1,
+//       title: "Hello World"
+//     });    
 
-    this.courses.update(courses => [...courses, "Angular Core Deep Dive"]);
+//     this.courses.update(courses => [...courses, "Angular Core Deep Dive"]);
     
 
-  }
+//   }
 
-  incrementMultiplier() {
-    this.multiplier++;
-  }
-}
+//   incrementMultiplier() {
+//     this.multiplier++;
+//   }
+// }
 
 
 // ANGULAR SIGNALS - INTRODUCTION
@@ -223,3 +224,22 @@ this.effectRef =  effect((onCleanup) => {
       const derivedCounterValue = this.derivedCounter();
 ...
 */
+export class AppComponent {
+
+  derivedCounter = computed(() => {
+    const counter =  this.counterService.counter();
+
+    return counter * 10;
+  });
+
+  constructor(
+    public counterService: CounterService) {
+
+    }
+
+  increment() {
+    this.counterService.increment();
+  }
+}
+
+

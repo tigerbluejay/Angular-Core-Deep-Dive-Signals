@@ -58,19 +58,20 @@
             <!-- <div>Counter Value: {{ counter }}</div> -->
             <!-- Signal Style -->
             <!-- You call the signal as if it were a function -->
-            <div>Counter Value: {{ counter() }}</div>
+            <!-- <div>Counter Value: {{ counter() }}</div> -->
+            <div>Counter Value (from Service): {{ counterService.counter() }}</div>
 
             <!-- Print out signal object properties and array items-->
-            <div>Course Title: {{ course().title }} </div>
-            <div>Courses: {{ courses().join(", ") }}</div>
+            <!-- <div>Course Title: {{ course().title }} </div>
+            <div>Courses: {{ courses().join(", ") }}</div> -->
 
             <!-- Print out the derived signal value-->
             <div>Derived Value: {{ derivedCounter() }} </div>
             <button (click)="increment()">Increment</button>
 
             <!-- Part of the example of how signals communicate-->
-            <div>Multiplier: {{ multiplier }} </div>
-            <button (click)="incrementMultiplier()">++ Multiplier</button>
+            <!-- <div>Multiplier: {{ multiplier }} </div>
+            <button (click)="incrementMultiplier()">++ Multiplier</button> -->
 
           </div>
       </div>
