@@ -115,13 +115,12 @@ import { CounterService } from '../counter.service';
 // }
 
 
-// ANGULAR SIGNALS - INTRODUCTION
+/* ANGULAR SIGNALS - INTRODUCTION */
 /* Normally we rely on the Default Change Detection Mechanism.
 But when you build pages that have lots of components and a lot of template
 expressions, you might run into some performance issues,
-because default change detection will check all the value of all the
-expressions of every component in the component tree and 
-template expression, which can add up.
+because default change detection will check all the value of all the expressions of 
+every component in the component tree and template expression, which can add up.
 This is an expensive calculation in terms of CPU and browser resources.
 
 "A Signal is a reactive angular primitive which allows us to build
@@ -138,41 +137,39 @@ to all the "consumers" of the signal.
 Any data you use in a template (html) you should put it in a signal.
 */
 
-// SIGNALS - HOW SIGNALS COMMUNICATE (source and derived signals)
-/* Whenever we call a derived or computed signal, Angular makes
-note that the source signal is being used in the derived signal
-and keeps it in mind.
-Precisely when the source signal is invoked in the derived signal,
-Angular makes this note. For this reason, it is not a good idea to
-reference a source signal in a derived signal inside an if block.
-This is because if the if block is not called the first time the
-derived signal is executed - and thus the source signal is not
-invoked - then Angular does not know that the derived signal depends
-on the source signal.
-To avoid this problem we can initialize the source signal inside
-the derived signal outside of if blocks.
 
-The dependency between signals are dynamic, they depend on the last
-execution of the derived or computer signals as new values are emitted.
+/* SIGNALS - HOW SIGNALS COMMUNICATE (source and derived signals) */
+
+/* Whenever we call a derived or computed signal, Angular makes note that the source 
+signal is being used in the derived signal and keeps it in mind.
+Precisely when the source signal is invoked in the derived signal,
+Angular makes this note. For this reason, it is not a good idea to reference a source 
+signal in a derived signal inside an if block.
+This is because if the if block is not called the first time the derived signal is 
+executed - and thus the source signal is not invoked - then Angular does not know 
+that the derived signal depends on the source signal.
+To avoid this problem we can initialize the source signal inside the derived signal 
+outside of if blocks.
+
+The dependency between signals are dynamic, they depend on the last execution of the 
+derived or computer signals as new values are emitted.
 */
 
-// SIGNALS - SIDE EFFECTS
-/* Whenever we want a side effect to occur every time one or more
-signals change we use the effects method of the signals API.
-The effects method can be called for instance in the constructor such
-that Angular can make note (similar to the computed signals) or which
-signals it should track.
-A side effect can include logging values of a signal, or export the
-value of the signal(s) to local storage or a cookie, or save the value
-to the database (although using the update API should not happen in 
-the effects method).
-If inside the effect() we have two signals, the effect method will
-wait for changes to occur in both signals before it executes.
+/* SIGNALS - SIDE EFFECTS*/
+/* Whenever we want a side effect to occur every time one or more signals change we use 
+the effects method of the signals API.
+The effects method can be called for instance in the constructor such that Angular can 
+make note (similar to the computed signals) or which signals it should track.
+A side effect can include logging values of a signal, or export the value of the 
+signal(s) to local storage or a cookie, or save the value to the database 
+(although using the update API should not happen in the effects method).
+If inside the effect() we have two signals, the effect method will wait for changes to 
+occur in both signals before it executes.
 */ 
 
-// SIGNALS - SIDE EFFECTS CLEAN UP
-/* Usually side effects get cleaned up automatically when the component
-it is in is destoryed.
+/* SIGNALS - SIDE EFFECTS CLEAN UP*/
+/* Usually side effects get cleaned up automatically when the component it is in is 
+destoryed.
 But we could also opt to clean up manually:
 This usually happens when you want to cancel a timer interval, or time out,
 close a network connection, release a resource an application is using.
@@ -192,9 +189,11 @@ effect(() => {
         manualCleanup: true;
       });
 
+
 Step 2. Add a cleanup button on the html page to tigger the cleanup
 
 <button (click)="onCleanup">Cleanup</button>
+
 
 Step 3. Add reference to the effect
 
@@ -208,11 +207,13 @@ this.effectRef =  effect(() => {
       const derivedCounterValue = this.derivedCounter();
 ...
 
+
 Step 4. Fill up onCleanup()
 
 onCleanup() {
   this.effectRef.destroy();
 }
+
 
 Step 5. Add the callback function on the effect.
 
