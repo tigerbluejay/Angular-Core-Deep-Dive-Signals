@@ -50,9 +50,7 @@ The CounterService defines a private signal counterSignal and exposes a read-onl
 ```ts
 private counterSignal = signal(0);
 readonly counter = this.counterSignal.asReadonly();
-It includes an increment() method, enforcing an upper limit and updating the signal reactively:
-```
-```ts
+// It includes an increment() method, enforcing an upper limit and updating the signal reactively:
 increment() {
   if (this.counter() > 10) {
     throw `Maximum value reached!`;
@@ -71,7 +69,7 @@ Inside app.component.html, signal values are invoked and rendered directly:
 ```html
 <div>Counter Value (from Service): {{ counterService.counter() }}</div>
 <div>Derived Value: {{ derivedCounter() }}</div>
-This reflects the reactive binding without needing ChangeDetectorRef or manual triggering.
+<!-- This reflects the reactive binding without needing ChangeDetectorRef or manual triggering. -->
 ```
 
 ### 6. Signal Inputs (Advanced - Not Used Here)
@@ -82,7 +80,7 @@ Angular now allows @Input properties to be signals themselves using input(). Thi
 
 ```ts
 course = input<Course>();
-With this setup, a signal input can trigger effects like logging without ngOnChanges.
+// With this setup, a signal input can trigger effects like logging without ngOnChanges.
 ```
 
 ## 🛠 App Structure
@@ -122,7 +120,7 @@ This code serves as a playground for understanding and experimenting with Angula
 
 ```plaintext
 +-------------------+           injects            +---------------------+
-|                   | --------------------------> |                     |
+|                   | ---------------------------> |                     |
 | AppComponent      |                              |   CounterService    |
 |                   | <--------------------------  |                     |
 +-------------------+       exposes signal         +---------------------+
@@ -130,11 +128,11 @@ This code serves as a playground for understanding and experimenting with Angula
         |                                                 |
         | uses                                            | defines
         v                                                 v
-+-------------------+                              +----------------------+
++-------------------+                              +-------------------------+
 | Template (HTML)   | <--------------------------  | counterSignal (private) |
-| - {{ counter() }} |       counter() signal       +----------------------+
-| - {{ derived() }} |                              | increment() method     |
-+-------------------+                              +----------------------+
+| - {{ counter() }} |       counter() signal       +-------------------------+
+| - {{ derived() }} |                              | increment() method      |
++-------------------+                              +-------------------------+
 ```
 
 ### 2. Signal Lifecycle and Flow
@@ -160,18 +158,18 @@ This code serves as a playground for understanding and experimenting with Angula
         |
         v
 +----------------------------+
-| Signal Notifies Angular   |
-| -> DOM updates via        |
-|    {{ counter() }}        |
-| -> derivedCounter()       |
+| Signal Notifies Angular    |
+| -> DOM updates via         |
+|    {{ counter() }}         |
+| -> derivedCounter()        |
 +----------------------------+
 ```
 
 ### 3. Derived Signal Dependency
 ```plaintext
-+------------------------+
++----------------------------+
 |  counterService.counter()  |
-+------------------------+
++----------------------------+
              |
              v
 +------------------------+
