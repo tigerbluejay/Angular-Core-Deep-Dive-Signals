@@ -37,7 +37,7 @@ effect(() => {
   const derivedCounterValue = this.derivedCounter();
   console.log(`counter: ${counterValue} derived counter: ${derivedCounterValue}`);
 });
-Advanced usage includes manual cleanup, useful for network connections or timers. Steps include storing a reference to the effect and calling .destroy() when cleanup is triggered.
+// Advanced usage includes manual cleanup, useful for network connections or timers. Steps include storing a reference to the effect and calling .destroy() when cleanup is triggered.
 ```
 
 ### 4. Signal-Based Services
